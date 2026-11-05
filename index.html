@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#090b0a">
+    <title>Minibia Client Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <main class="app">
+        <header class="header">
+            <div>
+                <h1>Minibia Client Analyzer</h1>
+                <p>Built specifically for the Minibia @Mentions userscript. Analyze client source files and generate the configuration automatically.</p>
+            </div>
+        </header>
+
+        <section class="panel">
+            <div class="section-heading">
+                <div>
+                    <h2>Source files</h2>
+                </div>
+            </div>
+
+            <div class="file-grid">
+                <label class="file-card" for="currentZip">
+                    <span class="file-icon">↑</span>
+                    <strong>Current client ZIP</strong>
+                    <span id="currentName" class="file-name">Choose a .zip file</span>
+                    <input id="currentZip" type="file" accept=".zip,application/zip">
+                </label>
+
+                <label class="file-card secondary" for="previousZip">
+                    <span class="file-icon">↔</span>
+                    <strong>Previous client ZIP</strong>
+                    <span id="previousName" class="file-name">Optional — compare versions</span>
+                    <input id="previousZip" type="file" accept=".zip,application/zip">
+                </label>
+            </div>
+
+            <div class="controls">
+                <label class="strict-control">
+                    <input id="strictMode" type="checkbox">
+                    <span>Strict mode</span>
+                    <small>Prevent exports when critical fields are missing</small>
+                </label>
+
+                <button id="analyzeButton" class="primary" disabled>
+                    Analyze client <span>→</span>
+                </button>
+            </div>
+
+            <div id="status" class="status" aria-live="polite"></div>
+        </section>
+
+        <section id="results" class="results hidden">
+            <div class="section-heading">
+                <div>
+                    <h2>Analysis results</h2>
+                </div>
+                <span id="resultBadge" class="result-badge"></span>
+            </div>
+
+            <div id="summary" class="summary-grid"></div>
+
+            <div id="errors" class="error-list hidden"></div>
+
+            <div id="details" class="details-grid"></div>
+
+            <section id="diffSection" class="panel diff-panel hidden">
+                <div class="section-heading">
+                    <div>
+                        <h2>Version differences</h2>
+                    </div>
+                    <span id="diffCount" class="muted"></span>
+                </div>
+
+                <div id="diffs"></div>
+            </section>
+
+            <section class="panel output-panel">
+                <div class="section-heading">
+                    <div>
+                        <h2>Generated configuration</h2>
+                    </div>
+                    <span class="muted">CLIENT_CONFIG</span>
+                </div>
+
+                <pre id="configOutput"></pre>
+
+                <div class="output-actions">
+                    <button id="copyButton" class="primary">Copy config</button>
+                    <button id="downloadJs" class="secondary-button">Download config_client.js</button>
+                    <button id="downloadJson" class="secondary-button">Download JSON report</button>
+                </div>
+            </section>
+        </section>
+
+        <footer>
+            Minibia Client Analyzer · Runs entirely in your browser
+        </footer>
+    </main>
+</body>
+</html>
